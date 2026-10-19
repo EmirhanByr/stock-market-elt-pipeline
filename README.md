@@ -42,7 +42,7 @@ Bu proje; Borsa İstanbul lokomotif hisseleri, piyasa döviz kurları (USD/TRY) 
 
 ---
 
-Yerel Geliştirme ve Kurulum Kılavuzu
+## Yerel Geliştirme ve Kurulum Kılavuzu
 
 Bu projeyi yerel makinenizde çalıştırmak, veri boru hattını tetiklemek ve BigQuery entegrasyonunu doğrulamak için aşağıdaki adımları izleyin.
 
