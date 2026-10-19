@@ -1,4 +1,4 @@
-# 📈 Borsa İstanbul ELT Pipeline & In-Warehouse AI Dashboard
+#  Borsa İstanbul ELT Pipeline & In-Warehouse AI Dashboard
 
 Google Cloud BigQuery üzerinde modern ELT mimarisi ve BigQuery ML kullanılarak geliştirilmiş uçtan uca veri mühendisliği ve finansal analitik projesi.
 
@@ -6,7 +6,7 @@ Bu proje; Borsa İstanbul verilerini çekip **Bronze**, **Silver** ve **Gold** k
 
 ---
 
-## 🏗️ Mimari & Katmanlar
+##  Mimari & Katmanlar
 
 - **ELT Pipeline:** Python ve Pandas ile çekilen piyasa verileri doğrudan BigQuery ambarına yüklenir.
 - **Medallion Architecture:**
@@ -18,7 +18,7 @@ Bu proje; Borsa İstanbul verilerini çekip **Bronze**, **Silver** ve **Gold** k
 
 ---
 
-## 🖥️ İnteraktif Dashboard (Streamlit)
+##  İnteraktif Dashboard (Streamlit)
 
 Dashboard üzerinden:
 - Seçilen hisseye özel son kapanış, dolar bazlı getiri ve kümülatif reel kazanç KPI kartları,
@@ -28,7 +28,7 @@ Dashboard üzerinden:
 
 ---
 
-## 🚀 Projeyi Yerel Ortamda Çalıştırma Rehberi
+##  Projeyi Yerel Ortamda Çalıştırma Rehberi
 
 Projeyi kendi bilgisayarınızda klonlayıp çalıştırmak için aşağıdaki adımları izleyin:
 
@@ -36,7 +36,7 @@ Projeyi kendi bilgisayarınızda klonlayıp çalıştırmak için aşağıdaki a
 ```bash
 git clone [https://github.com/EmirhanByr/stock-market-elt-pipeline.git](https://github.com/EmirhanByr/stock-market-elt-pipeline.git)
 cd stock-market-elt-pipeline
-2. Sanal Ortamı Kurun ve Aktifleştirin
+### 2. Sanal Ortamı Kurun ve Aktifleştirin
 Bash
 # Windows
 python -m venv .venv
