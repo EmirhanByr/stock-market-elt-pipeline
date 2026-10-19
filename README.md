@@ -47,7 +47,7 @@ Bu proje; Borsa İstanbul lokomotif hisseleri, piyasa döviz kurları (USD/TRY) 
 Bu projeyi yerel makinenizde çalıştırmak, veri boru hattını tetiklemek ve BigQuery entegrasyonunu doğrulamak için aşağıdaki adımları izleyin.
 
 ### 1. Ön Gereksinimler
-* **Python 3.11 veya 3.12** (Kararlı sürüm)
+* **Python  (Kararlı sürüm)
 * **Git**
 * Google Cloud Platform hesabı ve BigQuery erişim izni
 
