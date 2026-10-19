@@ -1,4 +1,4 @@
-#  Borsa İstanbul ELT Pipeline & In-Warehouse AI Dashboard
+# Borsa İstanbul ELT Pipeline & In-Warehouse AI Dashboard
 
 Google Cloud BigQuery üzerinde modern ELT mimarisi ve BigQuery ML kullanılarak geliştirilmiş uçtan uca veri mühendisliği ve finansal analitik projesi.
 
@@ -6,7 +6,7 @@ Bu proje; Borsa İstanbul verilerini çekip **Bronze**, **Silver** ve **Gold** k
 
 ---
 
-##  Mimari & Katmanlar
+## Mimari & Katmanlar
 
 - **ELT Pipeline:** Python ve Pandas ile çekilen piyasa verileri doğrudan BigQuery ambarına yüklenir.
 - **Medallion Architecture:**
@@ -18,7 +18,7 @@ Bu proje; Borsa İstanbul verilerini çekip **Bronze**, **Silver** ve **Gold** k
 
 ---
 
-##  İnteraktif Dashboard (Streamlit)
+## İnteraktif Dashboard (Streamlit)
 
 Dashboard üzerinden:
 - Seçilen hisseye özel son kapanış, dolar bazlı getiri ve kümülatif reel kazanç KPI kartları,
@@ -28,7 +28,7 @@ Dashboard üzerinden:
 
 ---
 
-##  Projeyi Yerel Ortamda Çalıştırma Rehberi
+## Projeyi Yerel Ortamda Çalıştırma Rehberi
 
 Projeyi kendi bilgisayarınızda klonlayıp çalıştırmak için aşağıdaki adımları izleyin:
 
@@ -36,32 +36,38 @@ Projeyi kendi bilgisayarınızda klonlayıp çalıştırmak için aşağıdaki a
 ```bash
 git clone [https://github.com/EmirhanByr/stock-market-elt-pipeline.git](https://github.com/EmirhanByr/stock-market-elt-pipeline.git)
 cd stock-market-elt-pipeline
+```
+
 ### 2. Sanal Ortamı Kurun ve Aktifleştirin
-Bash
-# Windows
+```bash
+# Windows için:
 python -m venv .venv
 source .venv/Scripts/activate
 
-# macOS / Linux
+# macOS / Linux için:
 python3 -m venv .venv
 source .venv/bin/activate
-3. Bağımlılıkları Yükleyin
-Bash
+```
+
+### 3. Bağımlılıkları Yükleyin
+```bash
 pip install -r requirements.txt
-4. Google Cloud Yetkilendirmesi
+```
+
+### 4. Google Cloud Yetkilendirmesi
 Proje BigQuery veri ambarına bağlandığı için GCP erişimi gerektirir:
+- BigQuery okuma yetkisine sahip Service Account anahtarını proje ana dizinine `gcp-key.json` adıyla ekleyin.
+*(Alternatif olarak terminalde `gcloud auth application-default login` komutunu çalıştırabilirsiniz).*
 
-BigQuery okuma yetkisine sahip Service Account anahtarını proje ana dizinine gcp-key.json adıyla ekleyin.
-(Alternatif olarak terminalde gcloud auth application-default login komutunu çalıştırabilirsiniz).
-
-5. Web Panelini Başlatın
-Bash
+### 5. Web Panelini Başlatın
+```bash
 streamlit run app.py
-Tarayıcınızda otomatik olarak http://localhost:8501 adresi açılacaktır.
+```
+Tarayıcınızda otomatik olarak `http://localhost:8501` adresi açılacaktır.
 
-🛠️ Kullanılan Teknolojiler
-Cloud & DWH: Google Cloud BigQuery, BigQuery ML
+---
 
-Language & Libraries: Python, Pandas, Streamlit, Plotly, db-dtypes
-
-Version Control: Git, GitHub
+## Kullanılan Teknolojiler
+- **Cloud & DWH:** Google Cloud BigQuery, BigQuery ML
+- **Language & Libraries:** Python, Pandas, Streamlit, Plotly, db-dtypes
+- **Version Control:** Git, GitHub
