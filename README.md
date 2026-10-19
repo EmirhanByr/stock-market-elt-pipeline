@@ -1,61 +1,38 @@
-# Borsa İstanbul (BIST) Uçtan Uca ELT & In-Warehouse AI Veri Boru Hattı
+# 📈 Borsa İstanbul ELT Pipeline & In-Warehouse AI Dashboard
 
-Bu proje; Borsa İstanbul lokomotif hisseleri, piyasa döviz kurları (USD/TRY) ve şirket boyut verilerini API üzerinden toplayan, bellek içinde işleyerek Google Cloud BigQuery veri ambarına aktaran, ilişkisel Star Schema / Medallion Mimarisi ile modelleyen ve BigQuery ML (ARIMA_PLUS) algoritmasıyla fiyat tahminleri üreten uçtan uca bir veri mühendisliği boru hattıdır.
+Google Cloud BigQuery üzerinde modern ELT mimarisi ve BigQuery ML kullanılarak geliştirilmiş uçtan uca veri mühendisliği ve finansal analitik projesi.
 
----
-
-## Sistem Mimarisi
-
-* **Extract & Ingestion (Python):** `yfinance` ile hisse fiyatları ve USD/TRY kuru toplanır.
-* **Storage & Data Warehouse (Google Cloud BigQuery):**
-  * **Bronze (Raw):** `raw_hisse_fiyatlari`, `raw_doviz_kurlari`, `dim_sirketler`
-  * **Silver (Staging):** `stg_piyasa_birlesik` (JOIN ve LAG ile günlük TL/USD reel getiri hesabı)
-  * **Gold (Marts & AI):** `fct_sektor_ve_reel_getiri_karnesi`, `fct_piyasa_hacim_sinyalleri`, `fct_ai_fiyat_tahminleri`
-* **In-Warehouse AI (BigQuery ML):** Veri dışarı aktarılmadan SQL içinde `ARIMA_PLUS` ile 5 günlük fiyat projeksiyonu üretilir.
+Bu proje; Borsa İstanbul verilerini çekip **Bronze**, **Silver** ve **Gold** katmanlarında modelledikten sonra, BigQuery ML (`ARIMA_PLUS`) ile fiyat tahminleri üretir ve sonuçları **Streamlit** dashboard üzerinde görselleştirir.
 
 ---
 
-## Öne Çıkan Mühendislik Pratikleri
+## 🏗️ Mimari & Katmanlar
 
-* **Idempotent Boru Hattı:** `WRITE_TRUNCATE` stratejisi ile tekrarlanan çalıştırmalarda veri çoğalması (duplicate) engellenir.
-* **Bellek İçi Akış (In-Memory Load):** Veriler diske yazılmadan doğrudan Python RAM'inden BigQuery API'sine aktarılır.
-* **İleri SQL Analitiği:** Window Functions (`LAG`, `ROWS BETWEEN`) kullanılarak hisse bazlı izolasyonla kayan hacim ortalamaları ve kur düzeltmeli reel getiriler hesaplanır.
-* **In-Warehouse Machine Learning:** Tahminleme modeli doğrudan veri tabanında eğitilerek veri taşıma maliyeti ve güvenlik açıkları sıfıra indirilir.
-
----
-
-## Veri Modelleri
-
-* `stg_piyasa_birlesik.sql`: Şirket sektörü, Dolar kuru ve hisse verilerini birleştirip günlük reel getiriyi hesaplar.
-* `fct_sektor_ve_reel_getiri_karnesi.sql`: Kümülatif getiriyi Dolar kuruyla karşılaştırarak reel kazanç durumunu etiketler.
-* `fct_piyasa_hacim_sinyalleri.sql`: 10 günlük ortalama hacim üzerinden hacim patlamalarını ve yön baskısını tespit eder.
-* `fct_ai_fiyat_tahminleri.sql`: BigQuery ML ile her hisse için 5 günlük alt ve üst fiyat beklenti koridorlarını listeler.
+- **ELT Pipeline:** Python ve Pandas ile çekilen piyasa verileri doğrudan BigQuery ambarına yüklenir.
+- **Medallion Architecture:**
+  - **Bronze:** Ham piyasa ve döviz verileri.
+  - **Silver (`stg_piyasa_birlesik`):** Temizlenmiş, günlük getiri ve USD bazlı reel kazanç metrikleri eklenmiş model.
+  - **Gold (`fct_ai_fiyat_tahminleri`, `fct_piyasa_hacim_sinyalleri`):** Sektör karneleri, hacim anomalisi alarmları ve ML tahminleri.
+- **In-Warehouse AI:** BigQuery ML `ARIMA_PLUS` zaman serisi modeli ile %90 güven aralıklı 5 günlük gelecek fiyat koridoru.
+- **Presentation Layer:** Streamlit ve Plotly destekli interaktif analitik paneli.
 
 ---
 
-## Proje Dizin Yapısı
+## 🖥️ İnteraktif Dashboard (Streamlit)
 
-* `01_ingest_market_data.ipynb` - Veri çekme ve BigQuery otomatik yükleme scripti
-* `models/` - Analitik dönüşüm ve makine öğrenmesi SQL modelleri
-* `requirements.txt` - Python kütüphane bağımlılıkları
-* `README.md` - Proje mimari dokümantasyonu
-
----
-
-## Yerel Geliştirme ve Kurulum Kılavuzu
-
-Bu projeyi yerel makinenizde çalıştırmak, veri boru hattını tetiklemek ve BigQuery entegrasyonunu doğrulamak için aşağıdaki adımları izleyin.
-
-### 1. Ön Gereksinimler
-* **Python  (Kararlı sürüm)
-* **Git**
-* Google Cloud Platform hesabı ve BigQuery erişim izni
+Dashboard üzerinden:
+- Seçilen hisseye özel son kapanış, dolar bazlı getiri ve kümülatif reel kazanç KPI kartları,
+- Geçmiş fiyat hareketi ile geleceğe dönük AI tahmin güven koridoru,
+- Anomali hacim sinyalleri (Alım/Satım baskısı alarmları),
+- Gelecek 5 günün taban/tavan fiyat tahmin dökümleri canlı olarak incelenebilir.
 
 ---
 
-### 2. Depoyu Klonlama ve Çalışma Dizinine Geçiş
-Terminalinizi açıp depoyu yerel makinenize çekin:
+## 🚀 Projeyi Yerel Ortamda Çalıştırma Rehberi
 
+Projeyi kendi bilgisayarınızda klonlayıp çalıştırmak için aşağıdaki adımları izleyin:
+
+### 1. Depoyu Klonlayın
 ```bash
-git clone [https://github.com/](https://github.com/)<KULLANICI_ADIN>/borsa-elt-data-pipeline.git
-cd borsa-elt-data-pipeline
+git clone [https://github.com/EmirhanByr/stock-market-elt-pipeline.git](https://github.com/EmirhanByr/stock-market-elt-pipeline.git)
+cd stock-market-elt-pipeline
