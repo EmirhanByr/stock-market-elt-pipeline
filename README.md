@@ -42,13 +42,20 @@ Bu proje; Borsa İstanbul lokomotif hisseleri, piyasa döviz kurları (USD/TRY) 
 
 ---
 
-## Yerel Kurulum
+Yerel Geliştirme ve Kurulum Kılavuzu
 
-Projeyi yerel ortamda çalıştırmak için:
+Bu projeyi yerel makinenizde çalıştırmak, veri boru hattını tetiklemek ve BigQuery entegrasyonunu doğrulamak için aşağıdaki adımları izleyin.
 
-1. Depoyu klonlayın:
-   git clone https://github.com/KULLANICI_ADIN/borsa-elt-data-pipeline.git
-2. Proje dizinine gidin:
-   cd borsa-elt-data-pipeline
-3. Gerekli kütüphaneleri yükleyin:
-   pip install -r requirements.txt
+### 1. Ön Gereksinimler
+* **Python 3.11 veya 3.12** (Kararlı sürüm)
+* **Git**
+* Google Cloud Platform hesabı ve BigQuery erişim izni
+
+---
+
+### 2. Depoyu Klonlama ve Çalışma Dizinine Geçiş
+Terminalinizi açıp depoyu yerel makinenize çekin:
+
+```bash
+git clone [https://github.com/](https://github.com/)<KULLANICI_ADIN>/borsa-elt-data-pipeline.git
+cd borsa-elt-data-pipeline
